@@ -1,0 +1,113 @@
+class GameLogic
+  attr_reader :board
+
+  def initialize(board)
+    @board = board
+  end
+
+  def draw?
+    flat_board = board.grid.flatten
+    flat_board.none? { |node| node.value == " " }
+  end
+
+  def winner?
+    flat_board = board.grid.flatten
+    full_nodes = flat_board.select { |node| node.value != " " }
+    return false if full_nodes == []
+    full_nodes.each do |node|
+      if win_left?(node)
+        return true
+      elsif win_down?(node)
+        return true
+      elsif win_down_left?(node)
+        return true
+      elsif win_down_right?(node)
+        return true
+      end
+    end
+    false
+  end
+
+  private
+  def win_left?(node)
+    marker = node.value
+    if node.left
+      left_1 = node.left
+      if left_1.value == marker && left_1.left
+        left_2 = left_1.left
+        if left_2.value == marker && left_2.left
+          left_3 = left_2.left
+          if left_3.value == marker
+            return true
+          else return false
+          end
+        else return false
+        end
+      else return false
+      end
+    else return false
+    end
+  end
+
+  def win_down?(node)
+    marker = node.value
+    if node.down
+      down_1 = node.down
+      if down_1.value == marker && down_1.down
+        down_2 = down_1.down
+        if down_2.value == marker && down_2.down
+          down_3 = down_2.down
+          if down_3.value == marker
+            return true
+          else return false
+          end
+        else return false
+        end
+      else return false
+      end
+    else return false
+    end
+  end
+
+
+  def win_down_left?(node)
+    marker = node.value
+    if node.down_left
+      down_left_1 = node.down_left
+      if down_left_1.value == marker && down_left_1.down_left
+        down_left_2 = down_left_1.down_left
+        if down_left_2.value == marker && down_left_2.down_left
+          down_left_3 = down_left_2.down_left
+          if down_left_3.value == marker
+            return true
+          else return false
+          end
+        else return false
+        end
+      else return false
+      end
+    else return false
+    end
+  end   
+
+  def win_down_right?(node)
+    marker = node.value
+    if node.down_right
+      down_right_1 = node.down_right
+      if down_right_1.value == marker && down_right_1.down_right
+        down_right_2 = down_right_1.down_right
+        if down_right_2.value == marker && down_right_2.down_right
+          down_right_3 = down_right_2.down_right
+          if down_right_3.value == marker
+            return true
+          else return false
+          end
+        else return false
+        end
+      else return false
+      end
+    else return false
+    end
+  end
+
+end
