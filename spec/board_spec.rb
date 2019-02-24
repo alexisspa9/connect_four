@@ -1,24 +1,25 @@
 require "./lib/connect_four/board.rb"
 
 RSpec.describe Board do
+  before do 
+    @board = Board.new 
+  end
 
-	before do
-		@board = Board.new
-	end
+  context "#initialize" do
+    it "has a default value of ' '" do
+      expect(@board.grid[0][0].value).to eql ' '
+    end
 
-	describe "#initialize" do
-		it "has a default value of ' '" do
-			expect(@board.grid[0][0].value).to eq(" ")
-		end
-		it "creates a grid with 6 rows" do
-			expect(@board.grid.length).to eq(6)
-		end
-		it "creates a grid with 7 columns" do
-			@board.grid.each do |row|
-				expect(row.length).to eq(7)
-			end
-		end
-	end
+    it "creates a grid with 6 rows" do
+      expect(@board.grid.length).to eql 6
+    end
+
+    it "creates a grid with 7 columns" do
+      @board.grid.each do |row|
+        expect(row.length).to eql 7
+      end
+    end
+  end
 
   context "#grid" do
     it "can access an empty cell" do
@@ -127,8 +128,7 @@ RSpec.describe Board do
     end
   end
 
-
-context "#make_move" do 
+  context "#add_token" do 
     before do
       @board.grid[5][2].value = "X"
       @board.grid[3][4].value = "O"
@@ -136,23 +136,24 @@ context "#make_move" do
     end
 
     it "drops tokens to the bottom of empty columns" do
-      @board.make_move(0, "X")
+      @board.add_token(0, "X")
       expect(@board.grid[5][0].value).to eql "X"
     end
 
     it "drops tokens on top of a bottom token" do
-      @board.make_move(2, "Z")
+      @board.add_token(2, "Z")
       expect(@board.grid[4][2].value).to eql "Z"
     end
 
     it "drops tokens on top of higher up tokens" do
-      @board.make_move(4, "Y")
+      @board.add_token(4, "Y")
       expect(@board.grid[2][4].value).to eql "Y"
     end
 
     it "returns error message when a column is full" do
-      expect(@board.make_move(1, "X")).to eql "Invalid move: Column 1 is already full."
+      expect(@board.add_token(1, "X")).to eql "Invalid move: Column 1 is already full."
     end
 
   end
+
 end

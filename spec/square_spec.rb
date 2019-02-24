@@ -1,158 +1,190 @@
 require "./lib/connect_four/square.rb"
 
 RSpec.describe Square do
-	describe "#initialize" do
-		it "raises error if no arguments are given" do
-			expect { Square.new }.to raise_error(ArgumentError)
-		end
+  
+  context "#initialize" do
+    it "raises an error when not given input parameters" do
+      expect { Square.new }.to raise_error(ArgumentError)
+    end
 
-		it "doesn't raise an error when given a valid hash input" do
-			expect { Square.new({row: 2, col: 3 }) }.to_not raise_error
-		end
-		it "doesn't raise an error when given additional input" do
-			expect { Square.new({row: 2, col: 3, value: "X", right: 7 }) }.to_not raise_error
-		end
-	end
+    it "doesn't raise an error when given a valid input hash" do
+      expect { Square.new({row: 2, col: 4}) }.to_not raise_error
+    end
 
-	before do
-		@square = Square.new({
-			row: 2,
-			col: 3,
-			value: "X",
-			down: 5,
-			right: 5,
-			up: 5,
-			left: 5,
-			down_right: 5,
-			down_left: 5,
-			up_right: 5,
-			up_left: 5
-		})
+    it "doesn't raise an error when given additional hash values" do
+      expect { Square.new({row: 2, col: 4, 
+      left: 5, right: 7, down_left: 16}) }.to_not raise_error
+    end
+  end
 
-		@default_square = Square.new({row: 2, col: 3})
-	end
+  before do
+    @square = Square.new({
+      row:        2,
+      col:        3,
+      left:       4,
+      right:      5,
+      up:        6,
+      down:     7,
+      up_left:    8,
+      down_left:   9,
+      up_right:   10,
+      down_right:  11
+      })
+    @default_square = Square.new({
+      row:    2,
+      col:    3
+    })
+  end
 
-	describe "#value" do
-		it "returns the value given" do
-			expect(@square.value).to eq("X")
-		end
-		it "can be changed" do
-			expect(@square.value = "O").to eq("O")
-		end
-	end
+  context "#value" do
+    it "returns the default value" do
+      expect(@square.value).to eql " "
+    end
 
-	describe "#row" do
-		it "returns the given value" do
-			expect(@square.row).to eq(2)
-		end
-		it "can't be changed" do
-			expect{ @square.row = 3 }.to raise_error(NoMethodError)
-		end
-	end
+    it "can change the value" do
+      @square.value = "55"
+      expect(@square.value).to eql "55"
+    end
+  end
 
-	describe "#col" do
-		it "returns the given value" do
-			expect(@square.col).to eq(3)
-		end
-		it "can't be changed" do
-			expect{ @square.col = 4 }.to raise_error(NoMethodError)
-		end
-	end
+  context "#row" do 
+    it "returns the given value" do
+      expect(@square.row).to eql 2
+    end
 
-	describe "#down" do
-		it "return the given value" do
-			expect(@square.down).to eq(5)
-		end
-		it "can be changed" do
-			expect(@square.down = 4).to eq(4)
-		end
-		it "has a default value of nil" do
-			expect(@default_square.down).to be(nil)
-		end
-	end
+    it "can't be changed" do
+      expect{ @square.row = 55 }.to raise_error(NoMethodError)
+    end
+  end
 
-	describe "#left" do
-		it "return the given value" do
-			expect(@square.left).to eq(5)
-		end
-		it "can be changed" do
-			expect(@square.left = 4).to eq(4)
-		end
-		it "has a default value of nil" do
-			expect(@default_square.left).to be(nil)
-		end
-	end
+  context "#col" do 
+    it "returns the given value" do
+      expect(@square.col).to eql 3
+    end
 
-	describe "#right" do
-		it "return the given value" do
-			expect(@square.right).to eq(5)
-		end
-		it "can be changed" do
-			expect(@square.right = 4).to eq(4)
-		end
-		it "has a default value of nil" do
-			expect(@default_square.right).to be(nil)
-		end
-	end
+    it "can't be changed" do
+      expect{ @square.col = 55 }.to raise_error(NoMethodError)
+    end
+  end
 
-	describe "#up" do
-		it "return the given value" do
-			expect(@square.up).to eq(5)
-		end
-		it "can be changed" do
-			expect(@square.up = 4).to eq(4)
-		end
-		it "has a default value of nil" do
-			expect(@default_square.up).to be(nil)
-		end
-	end
+  context "#left" do
+    it "returns the given value" do
+      expect(@square.left).to eql 4
+    end
 
-	describe "#up_left" do
-		it "return the given value" do
-			expect(@square.up_left).to eq(5)
-		end
-		it "can be changed" do
-			expect(@square.up_left = 4).to eq(4)
-		end
-		it "has a default value of nil" do
-			expect(@default_square.up_left).to be(nil)
-		end
-	end
+    it "can be changed" do
+      @square.left = 55
+      expect(@square.left).to eql 55
+    end
 
-	describe "#up_right" do
-		it "return the given value" do
-			expect(@square.up_right).to eq(5)
-		end
-		it "can be changed" do
-			expect(@square.up_right = 4).to eq(4)
-		end
-		it "has a default value of nil" do
-			expect(@default_square.up_right).to be(nil)
-		end
-	end
+    it "has a default value of nil" do
+      expect(@default_square.left).to be_nil
+    end
+  end
 
-	describe "#down_right" do
-		it "return the given value" do
-			expect(@square.down_right).to eq(5)
-		end
-		it "can be changed" do
-			expect(@square.down_right = 4).to eq(4)
-		end
-		it "has a default value of nil" do
-			expect(@default_square.down_right).to be(nil)
-		end
-	end
+  context "#right" do
+    it "returns the given value" do
+      expect(@square.right).to eql 5
+    end
 
-	describe "#down_left" do
-		it "return the given value" do
-			expect(@square.down_left).to eq(5)
-		end
-		it "can be changed" do
-			expect(@square.down_left = 4).to eq(4)
-		end
-		it "has a default value of nil" do
-			expect(@default_square.down_left).to be(nil)
-		end
-	end
+    it "can be changed" do
+      @square.right = 55
+      expect(@square.right).to eql 55
+    end
+
+    it "has a default value of nil" do
+      expect(@default_square.right).to be_nil
+    end
+  end  
+
+  context "#up" do
+    it "returns the given value" do
+      expect(@square.up).to eql 6
+    end
+
+    it "can be changed" do
+      @square.up = 56
+      expect(@square.up).to eql 56
+    end
+
+    it "has a default value of nil" do
+      expect(@default_square.up).to be_nil
+    end
+  end
+
+  context "#down" do
+    it "returns the given value" do
+      expect(@square.down).to eql 7
+    end
+
+    it "can be changed" do
+      @square.down = 57
+      expect(@square.down).to eql 57
+    end
+
+    it "has a default value of nil" do
+      expect(@default_square.down).to be_nil
+    end
+  end
+
+  context "#up_left" do
+    it "returns the given value" do
+      expect(@square.up_left).to eql 8
+    end
+
+    it "can be changed" do
+      @square.up_left = 58
+      expect(@square.up_left).to eql 58
+    end
+
+    it "has a default value of nil" do
+      expect(@default_square.up_left).to be_nil
+    end
+  end
+
+  context "#down_left" do
+    it "returns the given value" do
+      expect(@square.down_left).to eql 9
+    end
+
+    it "can be changed" do
+      @square.down_left = 59
+      expect(@square.down_left).to eql 59
+    end
+
+    it "has a default value of nil" do
+      expect(@default_square.down_left).to be_nil
+    end
+  end
+
+  context "#up_right" do
+    it "returns the given value" do
+      expect(@square.up_right).to eql 10
+    end
+
+    it "can be changed" do
+      @square.up_right = 60
+      expect(@square.up_right).to eql 60
+    end
+
+    it "has a default value of nil" do
+      expect(@default_square.up_right).to be_nil
+    end
+  end
+
+  context "#down_right" do
+    it "returns the given value" do
+      expect(@square.down_right).to eql 11
+    end
+
+    it "can be changed" do
+      @square.down_right = 61
+      expect(@square.down_right).to eql 61
+    end
+
+    it "has a default value of nil" do
+      expect(@default_square.down_right).to be_nil
+    end
+  end
 
 end

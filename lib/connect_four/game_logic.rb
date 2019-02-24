@@ -19,9 +19,9 @@ class GameLogic
         return true
       elsif win_down?(node)
         return true
-      elsif win_down_left?(node)
+      elsif win_dwn_left?(node)
         return true
-      elsif win_down_right?(node)
+      elsif win_dwn_right?(node)
         return true
       end
     end
@@ -70,15 +70,15 @@ class GameLogic
   end
 
 
-  def win_down_left?(node)
+  def win_dwn_left?(node)
     marker = node.value
     if node.down_left
-      down_left_1 = node.down_left
-      if down_left_1.value == marker && down_left_1.down_left
-        down_left_2 = down_left_1.down_left
-        if down_left_2.value == marker && down_left_2.down_left
-          down_left_3 = down_left_2.down_left
-          if down_left_3.value == marker
+      dwn_left_1 = node.down_left
+      if dwn_left_1.value == marker && dwn_left_1.down_left
+        dwn_left_2 = dwn_left_1.down_left
+        if dwn_left_2.value == marker && dwn_left_2.down_left
+          dwn_left_3 = dwn_left_2.down_left
+          if dwn_left_3.value == marker
             return true
           else return false
           end
@@ -90,15 +90,15 @@ class GameLogic
     end
   end   
 
-  def win_down_right?(node)
+  def win_dwn_right?(node)
     marker = node.value
     if node.down_right
-      down_right_1 = node.down_right
-      if down_right_1.value == marker && down_right_1.down_right
-        down_right_2 = down_right_1.down_right
-        if down_right_2.value == marker && down_right_2.down_right
-          down_right_3 = down_right_2.down_right
-          if down_right_3.value == marker
+      dwn_right_1 = node.down_right
+      if dwn_right_1.value == marker && dwn_right_1.down_right
+        dwn_right_2 = dwn_right_1.down_right
+        if dwn_right_2.value == marker && dwn_right_2.down_right
+          dwn_right_3 = dwn_right_2.down_right
+          if dwn_right_3.value == marker
             return true
           else return false
           end

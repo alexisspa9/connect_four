@@ -1,11 +1,13 @@
 class Player
-	attr_reader :name, :marker
-	def initialize(input)
-		@name = input[:name]		
-		@marker = input[:marker]		
-	end
+  attr_reader :name, :marker
 
-	def drop_token(board, col)
-		board.make_move(col, @marker)	
-	end
+  def initialize(input)
+    @name = input[:name]
+    @marker = input[:marker]
+  end
+
+  def drop_token(board, col)
+    board.add_token(col, marker)
+  end
+
 end
